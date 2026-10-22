@@ -219,8 +219,67 @@ def analyse_dataset(
             f"Error: {str(e)}"
         )
 
+with gr.Blocks() as app:
 
-with gr.Blocks(...) as app:
+    gr.Markdown(
+        "# GlowSense Beauty Review Analyzer"
+    )
+
+    with gr.Tab(
+        "Single Review"
+    ):
+
+        review_input = gr.Textbox(
+            label="Customer Review"
+        )
+
+        button = gr.Button(
+            "Analyse"
+        )
+
+        output = gr.Label(
+            num_top_classes=3
+        )
+
+        button.click(
+            predict_sentiment,
+            review_input,
+            output
+        )
+
+
+    with gr.Tab(
+        "Dataset Analysis"
+    ):
+
+        upload = gr.File(
+            file_types=[".csv"]
+        )
+
+        column = gr.Dropdown(
+            choices=[]
+        )
+
+        upload.change(
+            load_columns,
+            upload,
+            column
+        )
+
+        analyse = gr.Button(
+            "Analyse Dataset"
+        )
+
+        file_output = gr.File()
+
+        analyse.click(
+            analyse_dataset,
+            [
+                upload,
+                column
+            ],
+            file_output
+        )
 
 
 if __name__ == "__main__":
@@ -236,3 +295,4 @@ if __name__ == "__main__":
         server_name="0.0.0.0",
         server_port=port
     )
+
