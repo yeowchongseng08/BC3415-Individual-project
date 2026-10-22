@@ -12,7 +12,7 @@ print("Starting App.py...")
 print("Loading SentenceTransformer...")
 
 embedding_model = SentenceTransformer(
-    "sentence-transformers/all-MiniLM-L6-v2"
+    "sentence-transformers/all-mpnet-base-v2"
 )
 
 print("Loading sentiment classifier...")
